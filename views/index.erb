@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">  
+  <title>PAGE TITLE</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
+  <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= @google_api %>"></script>
+  <%= include_gon %>
+  <script type="text/javascript">
+    var myLatLong = new google.maps.LatLng(gon.business_coords_lat, gon.business_coords_long);
+
+    function initialize() {
+      var mapOptions = {
+        center: myLatLong,
+        zoom: 18,
+        styles: [{"featureType":"water","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]},{"featureType":"landscape","stylers":[{"color":"#f2e5d4"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"administrative","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"road"},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{},{"featureType":"road","stylers":[{"lightness":20}]}]
+      };
+      var map = new google.maps.Map(document.getElementById("map-canvas"),
+          mapOptions);
+
+       var contentString = '<div class="panel panel-default">' +
+  '<div class="panel-body">' +
+    '<div class="media col-md-3">' +
+        '<figure class="pull-left">' +
+            '<img class="media-object img-rounded img-responsive" src="' + gon.business_image_url +'" alt="gon.business_name">' +
+        '</figure>' +
+    '</div>' +
+    '<div class="col-md-6">' +
+        '<h4 class="list-group-item-heading">' + gon.business_name + '</h4>' +
+        '<p class="list-group-item-text">' + gon.snippet_text + '</p>' +
+    '</div>' +
+    '<div class="col-md-3 text-center">' +
+        '<img src="' + gon.business_rating + '">' +
+        '<p>' + gon.business_address + '</p>' +
+        '<p>' + gon.business_phone_number + '</p>' +
+    '</div>' +
+  '</div>' +
+'</div>';
+
+      var infowindow = new google.maps.InfoWindow({
+          content: contentString
+      });
+
+      var marker = new google.maps.Marker({
+        position: myLatLong,
+        title: gon.business_name
+    });
+
+    marker.setMap(map);
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
+    });
+
+    infowindow.open(map,marker);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+</head>
+<body>
+  <div id="map-canvas"/></div>
+</body>
+</html>
