@@ -25,22 +25,24 @@
       var map = new google.maps.Map(document.getElementById("map-canvas"),
           mapOptions);
 
-       var contentString = '<div class="panel panel-default">' +
+       var contentString = '<div class="panel panel-default" id="info-window">' +
   '<div class="panel-body">' +
-    '<div class="media col-md-3">' +
-        '<figure class="pull-left">' +
-            '<img class="media-object img-rounded img-responsive" src="' + gon.business_image_url +'" alt="gon.business_name">' +
-        '</figure>' +
-    '</div>' +
-    '<div class="col-md-6">' +
+    // '<div class="media col-md-3">' +
+    //     '<figure class="pull-left">' +
+    //         '<img class="media-object img-rounded img-responsive" src="' + gon.business_image_url +'" alt="gon.business_name">' +
+    //     '</figure>' +
+    // '</div>' +
+    '<div class="col-md-12">' +
         '<h4 class="list-group-item-heading">' + gon.business_name + '</h4>' +
-        '<p class="list-group-item-text">' + gon.snippet_text + '</p>' +
-    '</div>' +
-    '<div class="col-md-3 text-center">' +
         '<img src="' + gon.business_rating + '">' +
-        '<p>' + gon.business_address + '</p>' +
-        '<p>' + gon.business_phone_number + '</p>' +
+        '<p class="list-group-item-text">' + gon.snippet_text + '</p>' + '<br>' +
+        '<p class="list-group-item-text">' + gon.business_address + '<br>' +
+        gon.business_phone_number + '</p>'+
     '</div>' +
+    // '<div class="col-md-3 text-center">' +
+    //     '<p>' + gon.business_address + '<br>' +
+    //     gon.business_phone_number + '</p>' +
+    // '</div>' +
   '</div>' +
 '</div>';
 
